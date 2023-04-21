@@ -2,48 +2,42 @@
 
 pragma solidity ^0.8.10;
 import "./Ownable.sol";
+import "./IERC20.sol";
 
-contract TCToken is Ownable {
+contract TCToken is Ownable, IERC20 {
     address private owner;
-    string private name;
-    string private symbol;
+    string private _name;
+    string private _symbol;
     uint256 private theTotalSupply;
 
     mapping(address => uint256) private balances;
     mapping(address => mapping(address => uint256)) private allowances;
 
-    event Transfer(address indexed _from, address indexed _to, uint _value);
-    event Approval(
-        address indexed _owner,
-        address indexed _spender,
-        uint _value
-    );
-
-    constructor(string memory _name, string memory _symbol) {
+    constructor(string memory coinName, string memory coinSymbol) {
         owner = msg.sender;
-        name = _name;
-        symbol = _symbol;
+        _name = coinName;
+        _symbol = coinSymbol;
         theTotalSupply = 10000 * 1e18;
         balances[owner] = theTotalSupply;
     }
 
-    function getTokenName() public view returns (string memory) {
-        return name;
+    function name() public view returns (string memory) {
+        return _name;
     }
 
-    function getTokenSymbol() public view returns (string memory) {
-        return symbol;
+    function symbol() public view returns (string memory) {
+        return _symbol;
     }
 
-    function getTokenDecimals() public view returns (uint32) {
+    function decimals() public view returns (uint32) {
         return 18;
     }
 
-    function totalSupply() public returns (uint) {
+    function totalSupply() public view override returns (uint256) {
         return theTotalSupply;
     }
 
-    function balanceOf(address account) public view returns (uint) {
+    function balanceOf(address account) public view override returns (uint) {
         return balances[msg.sender];
     }
 
@@ -51,7 +45,7 @@ contract TCToken is Ownable {
         address _from,
         address _to,
         uint _value
-    ) public returns (bool) {
+    ) public override returns (bool) {
         uint256 transferFee = (_value * 5) / 100;
         require(
             balances[_from] >= _value + transferFee,
@@ -69,7 +63,7 @@ contract TCToken is Ownable {
     function approve(
         address _spender,
         uint _value
-    ) public returns (bool success) {
+    ) public override returns (bool success) {
         require(
             balances[msg.sender] >= _value,
             "now sufficient funds for approval"
@@ -82,16 +76,19 @@ contract TCToken is Ownable {
     function allowance(
         address _owner,
         address _spender
-    ) public returns (uint remaining) {
+    ) public view override returns (uint256) {
         return allowances[_owner][_spender];
     }
 
-    function transfer(address _to, uint _value) public {
+    function transfer(
+        address _to,
+        uint256 _value
+    ) public override returns (bool) {
+        // Added bool return type
         require(
             msg.sender != address(0),
             "ERC20: transfer from the zero address"
         );
-
         require(_to != address(0), "ERC20: transfer to the zero address");
         uint256 transferFee = (_value * 5) / 100;
         require(
@@ -103,5 +100,7 @@ contract TCToken is Ownable {
         balances[owner] += transferFee;
         balances[_to] += _value;
         emit Transfer(msg.sender, _to, _value);
+
+        return true;
     }
 }
