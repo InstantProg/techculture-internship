@@ -31,7 +31,7 @@ uint32 decimals = token.getTokenDecimals(); // 18
 
 // Transfer tokens and pay a 5% fee to the contract owner
 token.transfer(receiverAddress, 100 * 1e18); // Sends 100 tokens to `receiverAddress` and 5 tokens to the contract owner
-
+```
 
 
 # Address of the deployed instance of contract (Sepolia Network): 
