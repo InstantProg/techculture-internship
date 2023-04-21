@@ -36,4 +36,4 @@ token.transfer(receiverAddress, 100 * 1e18); // Sends 100 tokens to `receiverAdd
 
 # Address of the deployed instance of contract (Sepolia Network): 
 
-[0x91406f9Bf3397AcE2f2738c78244ab39e7c19a7A]("https://sepolia.etherscan.io/address/0x91406f9Bf3397AcE2f2738c78244ab39e7c19a7A")
+[0x91406f9Bf3397AcE2f2738c78244ab39e7c19a7A](https://sepolia.etherscan.io/address/0x91406f9Bf3397AcE2f2738c78244ab39e7c19a7A)
