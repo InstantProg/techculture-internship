@@ -1,5 +1,8 @@
 # **TechCultureFlameSword**
 
+Link for item in OpenSea [marketplace](https://testnets.opensea.io/assets/bsc-testnet/0x0c81a4baa5905038b13ff1a1233137fec8d56290/1)
+
+
 This is a Solidity smart contract for an ERC-1155 token that represents a digital asset called TechCultureFlameSword. The contract includes the ability to mint new tokens, set the URI for the token metadata, and transfer tokens between addresses. It also includes a whitelist feature that limits the ability to purchase tokens to only those addresses on the whitelist.
 
 ## **Getting Started**
